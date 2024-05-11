@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
                 md5_item = findall(r"\[\[.+?\]\]", line)
                 md5_inside = findall(r"\[\[(.+?)\]\]", line)
-                if md5:
+                if md5_item:
                     line = line.replace(
                         md5_item[0], md5(md5_inside[0].encode()).hexdigest()
                     )
