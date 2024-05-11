@@ -85,10 +85,10 @@ def handle_paragraph(func):
 
 
 def handle_typography(func):
-    """Decorates a function to handle Markdown typography."""
+    """Decorate a function to handle Markdown typography."""
 
     def wrapper(line, _):
-        """Converts Markdown typography to HTML."""
+        """Convert Markdown typography to HTML."""
         item_reg = r"(\*\*[\w\s]+?\*\*|__[\w\s]+?__)"
         bold_reg = r"\*{2}([\w\s]+?)\*{2}"
         for item in findall(item_reg, line):
@@ -108,10 +108,10 @@ def handle_typography(func):
 
 
 def convert_md5(func):
-    """Decorates a function to convert Markdown MD5 hashes."""
+    """Decorate a function to convert Markdown MD5 hashes."""
 
     def wrapper(line, _):
-        """Converts Markdown MD5 hashes to hexadecimal."""
+        """Convert Markdown MD5 hashes to hexadecimal."""
         for item in findall(r"\[\[[\w\s]+?\]\]", line):
             line = line.replace(
                 item,
@@ -126,10 +126,10 @@ def convert_md5(func):
 
 
 def remove_c(func):
-    """Decorates a function to remove Markdown 'c' tags."""
+    """Decorate a function to remove Markdown 'c' tags."""
 
     def wrapper(line, _):
-        """Removes Markdown 'c' tags."""
+        """Remove Markdown 'c' tags."""
         for item in findall(r"\(\([\w\s]+?\)\)", line):
             line = line.replace(item, sub(r"[cC()]+", "", item), 1)
         return func(line, _)
@@ -144,7 +144,7 @@ def remove_c(func):
 @handle_list
 @handle_paragraph
 def process_line(line, options=None):
-    """Processes a Markdown line into HTML."""
+    """Processe a Markdown line into HTML."""
     return line
 
 
@@ -165,7 +165,9 @@ if __name__ == "__main__":
                 "unordered_list": False,
             }
             for line in read:
-                html.write(process_line(line, options))
+                line = process_line(line, options)
+                if len(line) > 1:
+                    html.write(line)
             if options.get("ordered_list"):
                 html.write("\n</ol>")
             if options.get("unordered_list"):
