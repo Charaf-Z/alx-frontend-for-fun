@@ -12,10 +12,10 @@ def handle_headers(func):
 
     def wrapper(line, _):
         """Converte Markdown headers to HTML."""
-        header_level = match(r"^(#{1,6})[\w\s ]+?$", line)
+        header_level = match(r"^(#{1,6})([\w\s ]+?)$", line)
         if header_level:
             line = "<h{0}>{1}</h{0}>\n".format(
-                len(header_level.group(1)), line.strip("# \n")
+                len(header_level.group(1)), header_level.group(2).strip()
             )
         return func(line, _)
 
