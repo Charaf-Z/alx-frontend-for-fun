@@ -14,7 +14,7 @@ def handle_headers(func):
         """Converte Markdown headers to HTML."""
         header_level = match(r"^(#{1,6})[\w ]+?$", line)
         if header_level:
-            line = "\n<h{0}>{1}</h{0}>".format(
+            line = "<h{0}>{1}</h{0}>\n".format(
                 len(header_level.group(1)), line.strip("# \n")
             )
         return func(line, _)
@@ -168,9 +168,18 @@ if __name__ == "__main__":
                 "unordered_list": False,
             }
             for line in read:
-                line = process_line(line, options)
-                if len(line) > 1:
-                    html.write(line)
+                # line = process_line(line, options)
+                # if len(line) > 1:
+                #     html.write(line)
+                length = len(line)
+                headings = line.lstrip("#")
+                heading_num = length - len(headings)
+                if 1 <= heading_num <= 6:
+                    line = (
+                        "<h{}>".format(heading_num)
+                        + headings.strip()
+                        + "</h{}>\n".format(heading_num)
+                    )
             if options.get("ordered_list"):
                 html.write("</ol>")
             if options.get("unordered_list"):
