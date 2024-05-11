@@ -40,7 +40,7 @@ def handle_list(func):
             options["ordered_list"] = True
             return func(line, options)
         if len(line) == 1 and ordered_list:
-            line = "\n</ol>\n"
+            line = "</ol>\n"
             options["ordered_list"] = False
             return func(line, options)
 
@@ -54,7 +54,7 @@ def handle_list(func):
             return func(line, options)
 
         if unordered_list_value or ordered_list_value:
-            line = "<li>{}</li>".format(line.strip("*- \n"))
+            line = "<li>{}</li>\n".format(line.strip("*- \n"))
         return func(line, options)
 
     return wrapper
@@ -94,6 +94,7 @@ def handle_typography(func):
         for item in findall(item_reg, line):
             if not match(item_reg, item):
                 continue
+            line = line.rstrip("\n")
             line = line.replace(
                 item,
                 "<{0}>{1}</{0}>".format(
@@ -113,6 +114,7 @@ def convert_md5(func):
     def wrapper(line, _):
         """Convert Markdown MD5 hashes to hexadecimal."""
         for item in findall(r"\[\[[\w\s]+?\]\]", line):
+            line = line.rstrip("\n")
             line = line.replace(
                 item,
                 md5(
@@ -131,6 +133,7 @@ def remove_c(func):
     def wrapper(line, _):
         """Remove Markdown 'c' tags."""
         for item in findall(r"\(\([\w\s]+?\)\)", line):
+            line = line.rstrip("\n")
             line = line.replace(item, sub(r"[cC()]+", "", item), 1)
         return func(line, _)
 
@@ -169,9 +172,9 @@ if __name__ == "__main__":
                 if len(line) > 1:
                     html.write(line)
             if options.get("ordered_list"):
-                html.write("\n</ol>")
+                html.write("</ol>")
             if options.get("unordered_list"):
-                html.write("\n</ul>")
+                html.write("</ul>")
             if options.get("paragraph"):
-                html.write("</p>")
+                html.write("\n</p>")
     exit(0)
