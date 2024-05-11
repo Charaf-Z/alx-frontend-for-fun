@@ -180,6 +180,8 @@ if __name__ == "__main__":
                         + headings.strip()
                         + "</h{}>\n".format(heading_num)
                     )
+                if length > 1:
+                    html.write(line)
             if options.get("ordered_list"):
                 html.write("</ol>")
             if options.get("unordered_list"):
