@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+  /* Just to put the line in the middle of 60vh */
+  flex-wrap: wrap;
+  align-content: center;
+
+  font-size: calc(3vw + 1vh);
+  min-height: 60vh;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 25%;
+
+  font-size: 2.5em;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.5em;
+}
+
+.box1 {
+  background: green;
+}
+
+.box2 {
+  background: cyan;
+}
+
+.box3 {
+  background: darkslateblue;
+}
+
+.box4 {
+  background: purple;
+}
+
+.box5 {
+  background: orange;
+}
+
+.box1,
+.box5 {
+  font-size: 1em;
+  flex-basis: 10%;
+}
+
+.box2,
+.box4 {
+  font-size: 1.5em;
+  flex-basis: 15%;
+}
