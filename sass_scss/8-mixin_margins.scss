@@ -1,0 +1,13 @@
+/* Dealing with margin mixin */
+@mixin inline-margin($value) {
+  margin-left: $value;
+  margin-right: $value;
+}
+
+body {
+  @include inline-margin(10px);
+}
+
+div {
+  @include inline-margin(15px);
+}

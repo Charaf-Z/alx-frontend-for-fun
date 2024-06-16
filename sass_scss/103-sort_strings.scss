@@ -1,0 +1,47 @@
+/* Dealing with Sort */
+@import "103-sort_list";
+
+@function compare($string-a, $string-b) {
+  $string-a: to-lower-case($string-a + unquote(""));
+  $string-b: to-lower-case($string-b + unquote(""));
+  $sort-order: a b c d e f g h i j k l m n o p q r s t u v w x y z !default;
+
+  @for $i from 1 through min(str-length($string-a), str-length($string-b)) {
+    $char-a: str-slice($string-a, $i, $i);
+    $char-b: str-slice($string-b, $i, $i);
+
+    @if $char-a and
+      $char-b and
+      index($sort-order, $char-a) !=
+      index($sort-order, $char-b)
+    {
+      @return index($sort-order, $char-a) > index($sort-order, $char-b);
+    }
+  }
+
+  @return str-length($string-a) > str-length($string-b);
+}
+
+@function sort-list($list) {
+  $len: length($list);
+  $sorted-list: $list;
+
+  @for $i from 1 through $len {
+    @for $j from 1 through $len - 1 {
+      $current-item: nth($sorted-list, $j);
+      $next-item: nth($sorted-list, $j + 1);
+
+      @if str-length($current-item) > 0 and str-length($next-item) > 0 {
+        @if compare($current-item, $next-item) {
+          $sorted-list: set-nth($sorted-list, $j, $next-item);
+          $sorted-list: set-nth($sorted-list, $j + 1, $current-item);
+        }
+      }
+    }
+  }
+
+  @return $sorted-list;
+}
+
+$sorted-list: sort-list($list_to_sort);
+@debug $sorted-list;

@@ -1,0 +1,16 @@
+/* Set a text color and background color */
+$clr-text: #3d3d3d;
+$clr-bg: #6d6d6d;
+
+body {
+  color: $clr-text;
+  background-color: $clr-bg;
+}
+
+p {
+  color: $clr-text;
+}
+
+h2 {
+  background-color: $clr-bg;
+}

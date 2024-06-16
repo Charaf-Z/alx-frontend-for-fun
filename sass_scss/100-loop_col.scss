@@ -1,0 +1,6 @@
+/* Dealing with columns and operators */
+@for $nbr from 1 through 4 {
+  .col-#{$nbr} {
+    width: calc(100% / $nbr);
+  }
+}

@@ -1,0 +1,6 @@
+/* Dealing with loop headers */
+@for $idx from 1 through 5 {
+  h#{$idx} {
+    font-size: $idx + px;
+  }
+}
